@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Float, Integer
+from sqlalchemy import Column, String, Float, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 # 创建对象基类
@@ -34,3 +34,16 @@ class News(Base):
     title = Column(String(150))                                  # 标题
     channel = Column(String(20))                                 # 分类
     source = Column(String(5))                                   # 来源
+
+
+class Daily(Base):
+    __tablename__ = 'daily'
+
+    ts_code = Column(String(10), primary_key=True)               # 股票TS代码
+    trade_date = Column(DateTime, primary_key=True)              # 交易日期
+    open = Column(Float)                                         # 开盘价
+    high = Column(Float)                                         # 最高价
+    low = Column(Float)                                          # 最低价
+    close = Column(Float)                                        # 收盘价
+    change = Column(Float)                                       # 涨跌额
+    pct_chg = Column(Float)                                      # 涨跌幅

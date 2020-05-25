@@ -23,3 +23,32 @@ create table stock_basic
     is_hs     varchar(1)  null
 );
 
+create table daily
+(
+    ts_code    varchar(10) not null,
+    trade_date datetime    not null,
+    open       float       null,
+    high       float       null,
+    low        float       null,
+    close      float       null,
+    `change`   float       null,
+    pct_chg    float       null,
+    primary key (ts_code, trade_date)
+)partition by range ( year(trade_date) )(
+    partition p_2018 values less than (2019),
+    partition p_2019 values less than (2020),
+    partition p_2020 values less than (2021),
+    partition p_future values less than (maxvalue)
+    )
+
+
+select
+ partition_name part,
+ partition_expression expr,
+ partition_description descr,
+table_rows
+from information_schema.partitions  where
+table_schema = schema()
+and table_name='daily';
+
+

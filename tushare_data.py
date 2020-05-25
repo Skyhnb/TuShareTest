@@ -41,3 +41,26 @@ def get_news_today(tushare_api, retry_count=3, pause=2):
                 break
 
     return frame
+
+
+def get_daily(tushare_api, retry_count=3,  pause=2):
+    today = datetime.datetime.now().strftime('%Y%m%d')
+    frame = pd.DataFrame()
+
+    for count in range(retry_count):
+        try:
+            data = tushare_api.daily(trade_date=today)
+        except:
+            time.sleep(pause)
+        else:
+            trade_date = data['trade_date']
+            data = data.drop('trade_date', axis=1)
+            trade_date_to_date = []
+            for i in trade_date:
+                i = datetime.datetime.strptime(i, '%Y%m%d').date()
+                trade_date_to_date.append(i)
+            data['trade_date'] = trade_date_to_date
+            frame = frame.append(data)
+            break
+
+    return frame

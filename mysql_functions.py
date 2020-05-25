@@ -34,6 +34,6 @@ def update_stock_basic(engine, tushare_api):
 def update_news_today(engine, tushare_api):
     """更新 当日新闻数据"""
     data = td.get_news_today(tushare_api)
-    print(data)
+#    print(data)
     data.to_sql('news', engine, if_exists='append', index=False)
 

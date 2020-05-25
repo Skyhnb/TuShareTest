@@ -18,4 +18,4 @@ tushare_api = ts.pro_api()
 # mf.update_stock_basic(engine, tushare_api)
 
 # 获取当日新闻数据
-mf.update_news_today(engine, tushare_api)
+# mf.update_news_today(engine, tushare_api)
